@@ -1,14 +1,13 @@
 const { 
-  create, 
-  update 
+  getUsers,
+  createUser,
+  deleteUser, 
+  updateUser 
 } = require("../controllers/user");
-// const { verifyId } = require("../utils/middlewares");
-
 const express = require("express");
-const userRouter = express.Router();
+const router = require('express').Router();
 
-userRouter.route("/")
-.post(create)
-.put(update)
+router.route("/").get(getUsers).post(createUser)
+router.route("/:id").delete(deleteUser).put(updateUser)
 
-module.exports = userRouter;
+module.exports = router;

@@ -1,8 +1,8 @@
 const express = require('express');
-const { createLesson } = require('../controllers/lessons');
-const lessonRouter = express.Router();
+const { createLesson, getLesson, updateLesson, deleteLesson } = require('../controllers/lessons');
+const router = require('express').Router();
 
-lessonRouter.route('/')
-.post(createLesson)
+router.route('/').get(getLesson).post(createLesson);
+router.route('/:id').delete(deleteLesson).put(updateLesson);
 
-module.exports = lessonRouter;
+module.exports = router;

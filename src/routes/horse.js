@@ -1,9 +1,9 @@
-const { createHorses } = require('../controllers/horses');
+const express = require("express");
+const router = require('express').Router();
+const Horse = require('../models/horses');
+const { createHorses, getHorses, deleteHorses, updateHorses } = require('../controllers/horses');
 
-const express = require('express');
-const horseRouter = express.Router();
+router.route('/').get(getHorses).post(createHorses);
+router.route('/:id').delete(deleteHorses).put(updateHorses);
 
-horseRouter.route('/horses')
-.post(createHorses)
-
-module.exports = horseRouter;
+module.exports = router;

@@ -1,21 +1,17 @@
-const mongoose = require("./db/connector");
-const Horse = require("./horses");
-const User = require("./users");
+const mongoose = require('mongoose');
+const Horse = require('./horses');
+const User = require('./users');
 
 const lessonSchema = new mongoose.Schema({
+  // store dates in UTC timezone  
   startTime: {
-    type: String,
-    required: true,
+      type: Date,
+      required: true,
   },
   endTime: {
-    type: String,
-    required: true,
-  },
-  bookedDates: [{
     type: Date,
     required: true,
-    default: new Date()
-  }],
+  },
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: User,
@@ -23,28 +19,35 @@ const lessonSchema = new mongoose.Schema({
   },
   volunteers: {
     "barn crew" : {
-      required: Number,
+      minVolunteers: Number,
       signedUp: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: User,
       }]
     },
-    "lesson assistent" : {
-      required: Number,
+    "pasture crew" : {
+      minVolunteers: Number,
+      signedUp: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: User,
+      }]
+    },
+    "lesson assistant" : {
+      minVolunteers: Number,
       signedUp: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: User,
       }]
     },
     "sidewalker" : {
-      required: Number,
+      minVolunteers: Number,
       signedUp: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: User,
       }]
     },
     "horse leader" : {
-      required: Number,
+      minVolunteers: Number,
       signedUp: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: User,
@@ -55,8 +58,10 @@ const lessonSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: Horse,
   }],
-  notes: String
+  notes: {
+    type: String
+  }
 });
 
-const Lesson = mongoose.model("Lesson", lessonSchema);
+const Lesson = mongoose.model('Lesson', lessonSchema);
 module.exports = Lesson;

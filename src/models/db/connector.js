@@ -1,16 +1,21 @@
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const mongoose = require('mongoose');
 
-dotenv.config();
+require('dotenv').config();
 
-const uri = process.env.MONGODB_URI;
+const uri = process.env.ATLAS_URI;
 
-mongoose.connect(uri, { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true, 
-  useCreateIndex: true,
-  useFindAndModify: false,
-  retryWrites: false,
- });
+/*
+* useNewUrlParser, useUnifiedTopology, useFindAndModify, and useCreateIndex are no longer 
+* necessary in mongoose 6
+*/
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(uri)
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+        console.log(error);
+        process.exit(1);
+    }
+};
 
-module.exports = mongoose;
+module.exports = connectDB;

@@ -20,8 +20,8 @@ let MailGenerator = new Mailgen({
   theme: "default",
   product: {
     name: "Nodemailer",
-    link: MAIN_URL,
-  },
+    link: MAIN_URL
+  }
 });
 
 const sendSignUpMail = async (req, res) => {
